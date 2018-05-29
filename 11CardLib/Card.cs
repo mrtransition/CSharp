@@ -129,6 +129,10 @@ namespace _11CardLib
                             return (card1.rank >= card2.rank);
                     }
                 }
+                else
+                {
+                    return (card1.rank >= card2.rank);
+                }
             }
             else
             {
