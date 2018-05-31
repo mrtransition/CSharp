@@ -132,6 +132,63 @@ namespace _11集合_比较_转换
          * ==,!=常常需要重写Object.Equals()和Object.GetHashCode()，因为这两个函数也可以用于比较对象。
          * 
          * 如果重载true或false运算符，就可以在布尔表达式中使用类,例如，if(op1){}
+         * 
+         * 
+         * 
+         * IComparable和IComparer接口是.Net Framework中比较对象的标准方式。
+         * IComparable:在要比较的对象的类中实现，可以比较该对象和另一个对象。
+         * IComparer:在一个单独的类中实现，可以比较任意两个对象。
+         * 
+         * IComparable提供了一个方法：CompareTo()这个方法接受一个对象，返回一个整型。
+         * ICompare提供了一个方法：Compare()这个方法接受两个对象，返回一个整型结构;
+         * 
+         * .Net Framework在类Comparer上提供了IComparer接口的默认实现方式
+         * Comparer.Default.Compare(ObjectA,ObjectB);
+         * 使用Comparer时，必须使用可以比较的类型，例如，试图比较string和int就会发生异常
+         * Comparer使用注意事项：
+         * ·检查传送给Comparer.Compare()的对象，看看他们是否支持IComparable，如果支持，就是用该实现代码。
+         * ·允许使用null值，它表示“小于”其他对象。
+         * ·字符串根据当前文化来处理，要根据不同的文化（或语言）处理字符串，Comparer类必须使用其构造函数
+         *  进行实例化，一边传送制定所使用的文化的System.Globalization.CultureInfo对象。
+         * ·字符串在处理时要区分大小写。如果要以不缺分大小写的方式来处理他们，就需要使用CaseInsensitiveCompare类。
+         */
+
+        /*使用IComparable和IComparer接口对集合排序
+         * ArrayList.Sort();
+         * 
+         * 在给ArrayList填充了简单类型时，例如整数或字符串，就会进行默认的比较。对于自己的类，
+         * 必须在类定义中实现IComparable，或者创建一个支持IComparable的类，来进行比较。
+         * 
+         * System.Collection名称空间中的一些类，包括CollectionBase都没有提供排序方法。
+         * 如果要对派生于这个类的集合排序，就必须多做一些工作，自己给内部的List集合排序。
+         */
+
+        /*
+         * 转换
+         * 到目前为止，在需要把一种类型转换为另一种类型时，使用的都是类型转换。
+         * 而这并不是唯一的方式。
+         * 在计算过程中，int可以隐式转换为long或double，采用相同的方式还可以定义所创建的类
+         * （隐式或显式）转换为其他类的方式。
+         * 为此，可以重载转换运算符。
+         * as 运算符：一般适用于引用类型的转换。
+         * 
+         * implicit隐式
+         * explicit显示
+         * 在显示转换中使用了checked关键字，如ConvClass1 op2 = (ConvClass1)op1;
+         * 则上述代码将会产生一个异常，因为op1的val属性太大，不能放在op2的属性
+         * 
+         * as运算符 :把一种类型转换为指定的引用类型
+         * 语法：<operand> as <type>
+         * 这只适用于下列情况：
+         * ·<operand>的类型是<type>类型
+         * ·<operand>可以隐式转换为<type>类型
+         * ·<operand>可以封箱到<type>类型中
+         * 如果不能从<operand>转换为<type>,则表达式的结果就是null.
+         * 
+         * 基类到派生类的转换可以使用显示转换来进行，但这并不总是有效的。
+         * 
+         * as运算符非常有用，因为
+         * as代码会把null赋予对象时，不会抛出异常。可以在类型转换中根据是否为空来判断，而不会报错。
          */
 
     class Program
