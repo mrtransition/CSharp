@@ -87,6 +87,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "12List_T搜索和排序", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "12定义泛型类", "12定义泛型类\12定义泛型类.csproj", "{FFB1B244-7059-460B-9E0B-B43B927C3057}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "13其他OOP技术", "13其他OOP技术\13其他OOP技术.csproj", "{D8EBB2AC-E3F5-444E-9715-370A6AA34D7B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -261,6 +263,10 @@ Global
 		{FFB1B244-7059-460B-9E0B-B43B927C3057}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFB1B244-7059-460B-9E0B-B43B927C3057}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFB1B244-7059-460B-9E0B-B43B927C3057}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8EBB2AC-E3F5-444E-9715-370A6AA34D7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8EBB2AC-E3F5-444E-9715-370A6AA34D7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8EBB2AC-E3F5-444E-9715-370A6AA34D7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8EBB2AC-E3F5-444E-9715-370A6AA34D7B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
