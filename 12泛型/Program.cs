@@ -86,7 +86,7 @@ namespace _12泛型
          * int result = (int)op1 * 2;
          * 
          * 或者使用Value属性
-         * int? op1 = 5;
+         * int? op1 = 5; 
          * int result = op1.Value * 2;
          * 如果op1是null,则会产生System.InvalidOperationException类型的异常。
          */
@@ -195,7 +195,7 @@ namespace _12泛型
          * 如果要添加的项的键与已有项的键相同，就会抛出ArgumentException异常。
          * Dictionary<K,V>允许把IComparer<K>接口传递给其构造函数，如果要把自己的类
          * 用作键，且它们不支持IComparable或IComparable<K>接口，或者要使用非默认的过程比较对象，
-         * 就必须把IComparer<K>接口传递结其构造函数。
+         * 就必须把IComparer<K>接口传递给其构造函数。
          */
 
         /*
@@ -325,41 +325,155 @@ namespace _12泛型
          * 
          */
 
-         /*
-          * 从泛型类继承
-          * 1、如果某个类型所继承的基类型中受到了约束，该类型就不能解除约束。
-          * 即：类型T所继承的基类型中使用时，该类型必须受到至少与基类型相同的约束。
-          * 2、如果继承了一个反类型，就必须提供所有必须的类型信息，这可以使用其他泛型
-          * 类型参数的形式来提供，也可以显示提供。这个也适用于继承了泛型类型的非泛型类。
-          * 如：
-          * 正确：
-          * public class Cards : List<Card>,ICloneable
-          * {}
-          * 
-          * 错误：
-          * public class Cards : List<T>,ICloneable
-          * {}
-          */
-          /*
-           * 泛型运算符
-           * 在C#中，可以像其他方法一样进行运算符重写，这也可以在泛型类中实现此类重写
-           * public static implicit operator List<Animal>(Farm<T> farm)
-           * {
-           *    ...
-           * }
-           * public static Farm<T> operator +(Farm<T> farm1,List<T> farm2)
-           * {
-           *    ...
-           * }
-           * 
-           * 
-           * 泛型结构
-           * public struct MyStruct<T1,T2>
-           * {
-           *    public T1 item1;
-           *    public T2 items;
-           * }
-           */
+        /*
+         * 从泛型类继承
+         * 1、如果某个类型所继承的基类型中受到了约束，该类型就不能解除约束。
+         * 即：类型T所继承的基类型中使用时，该类型必须受到至少与基类型相同的约束。
+         * 2、如果继承了一个反类型，就必须提供所有必须的类型信息，这可以使用其他泛型
+         * 类型参数的形式来提供，也可以显示提供。这个也适用于继承了泛型类型的非泛型类。
+         * 如：
+         * 正确：
+         * public class Cards : List<Card>,ICloneable
+         * {}
+         * 
+         * 错误：
+         * public class Cards : List<T>,ICloneable
+         * {}
+         */
+        /*
+         * 泛型运算符
+         * 在C#中，可以像其他方法一样进行运算符重写，这也可以在泛型类中实现此类重写
+         * public static implicit operator List<Animal>(Farm<T> farm)
+         * {
+         *    ...
+         * }
+         * public static Farm<T> operator +(Farm<T> farm1,List<T> farm2)
+         * {
+         *    ...
+         * }
+         * 
+         * 
+         * 泛型结构
+         * public struct MyStruct<T1,T2>
+         * {
+         *    public T1 item1;
+         *    public T2 items;
+         * }
+         */
+
+        /*
+         * 定义泛型接口
+         * 位于：Systems.Collections.Generic名称空间
+         * 定义泛型接口与定义泛型类所使用的技术相同
+         * 
+         * interface MyFarmingInterface<T> where T : Animal
+         * {
+         *   bool AttemptToBreed(T animal1,T animal2);
+         *   
+         *   T OldestInHerd{get;}
+         * }
+         * 泛型接口继承规则与泛型类相同：
+         * 如果继承了一个基泛型接口，就必须遵循“保持基接口泛型类型参数的约束”等规则
+         */
+
+        /*
+         * 定义泛型方法
+         * 在泛型方法中，返回类型和/或参数类型由泛型类型参数来确定
+         * pubic T GetDefault<T>()
+         * {
+         *      return default(T);
+         * }
+         * 方法调用：
+         * int myDefaultInt = GetDefault<T>();
+         * 
+         * 可以通过非泛型类来实现泛型方法：
+         * public class Defaulter
+         * {
+         *      public T GetDefault<T>()
+         *      {
+         *          return default(T);
+         *      } 
+         * }
+         * 
+         * 但如果类时泛型的，就必须为泛型方法类型使用不同的标识符
+         * 下面的代码会编译失败：
+         * public class Defaulter<T>
+         * {
+         *      public T GetDefault<T>()
+         *      {
+         *          return default(T);
+         *      } 
+         * }
+         * 必须重命名方法或类使用的类型T。
+         * 
+         * 泛型方法参数可以采用与类相同的方式使用约束，在此可以使用任意的类类型参数。
+         * 例如：
+         * public class Defaulter<T1>
+         * {
+         *      public T2 GetDefault<T2>() where T2 : T1
+         *      {
+         *          return default(T2);
+         *      }
+         * }
+         *  其中，为方法提供的类型T2必须与给类提供的T1相同，或继承自T1。
+         *  这是约束泛型方法的常用方式。
+         */
+
+        /*
+         * 定义泛型委托
+         * 要定义泛型委托，只需声明和使用一个或多个泛型类型参数，例如：
+         * public delegate T1 MyDelegate<T1,T2>(T1 op1,T2 op2) where T1 : T2;
+         */
+
+        /*
+         * 变体
+         * 变体是协变和抗变的统称。类似与多态性。
+         * 
+         * 下面代码是成立的：
+         * Cow myCow = new Cow("Geronimo");
+         * Animal myAnimal = myCow;
+         * 
+         * 下面代码是不能编译的：
+         * IMethaneProducer<Cow> cowMethaneProducer = myCow;
+         * IMethaneProducer<Animal> animalMethaneProducer = cowMethaneProducer;
+         * 失败原因是；
+         * 因为泛型类型的所有类型参数都是不变的，但是可以在泛型接口和泛型委托上定义
+         * 变体类型参数。
+         * 
+         * 为了是上述代码工作，IMethaneProducer<T>接口类型参数T必须是协变的。
+         * 有了协变的类型参数，就可以在IMethaneProducer<Cow>和IMethaneProducer<Animal>
+         * 之间建立继承关系，这样一种类型的变量就可以包含另一种类型的值，这与多态性类似。
+         * 
+         * 抗变和协变方向相反。
+         * 抗变不能项协变那样，把泛型接口值放在使用基类型的变量中，而可以把该接口放在使用派生
+         * 类型的变量中，例如：
+         * IGrassMuncher<Cow> cowGrassMuncher = myCow;
+         * IGrassMuncher<SuperCow> superCowGrassMuncher = cowGrassMuncher;
+         *
+         * 抗变：可以把泛型接口值放在使用派生类型的变量中。父类放到子类，参数只能做方法参数，不能做返回值。
+         * 协变：可以把泛型接口值放在使用基类型的变量中。子类放到父类，参数只能做返回值或属性get访问器。
+         */
+
+        /*
+         * 协变：关键字out
+         * public interface IMethaneProducer<out T>
+         * {
+         *  ...
+         * }
+         * 协变类型参数只能用作方法的返回值或属性get访问器。
+         * 例子：IEnumberable<T>接口
+         */
+
+        /*
+         * 抗变：关键字：in
+         * pulic interface IGrassMuncher<in T>
+         * {
+         *  ...
+         * }
+         * 抗变类型参数只能用作方法参数，不能用作返回类型。
+         * 例子：IComparer<T>
+         */
+
         static void Main(string[] args)
         {
         }
